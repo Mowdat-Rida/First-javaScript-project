@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="d.css">
+</head>
+<body class="body">
+    <div class="container">
+        <h3>Todo List</h3>
+        <input id="text" type="text" placeholder="Add task">
+        <button id="add">Add</button>
+        <button id="Update">Update</button>
+        <ol id="list">
+           
+           
+        </ol>
+
+    </div>
+    
+</body>
+<script>
+    let btn;
+    let inputvalue;
+    let list;
+    let Updatebtn;
+    let tasklist=[];
+    let updateindex;
+    
+    btn=document.getElementById('add');
+    inputvalue=document.getElementById('text');
+    list=document.getElementById('list');
+    Updatebtn=document.getElementById('Update');
+
+    btn.addEventListener('click',function (){
+        tasklist.push(inputvalue.value); //if we want multiple inputs then we make array variable and push our inputs in this variable 
+        inputvalue.value=''; 
+        console.log('Task',tasklist);
+
+        // alert(inputvalue.value );
+
+        list.innerHTML='';
+
+        for(let i=0 ; i<tasklist.length;i++ )  
+         {
+         list.innerHTML+=` <li> 
+               ${tasklist[i]}
+               <button onclick="deletetask('${i}')">Delete</button> 
+               <button onclick="edittask('${i}')">Edit</button>
+
+             </li>`;
+         }
+        
+    });
+    function deletetask(i){
+            alert('delete'+i);
+            //splice(i,list)  is used to delete the element from the array
+           
+            
+            tasklist.splice (i,1);
+            console.log('After list',tasklist);
+            list.innerHTML='';
+
+        for(let i=0 ; i<tasklist.length;i++ )  
+         {
+         list.innerHTML+=` <li> 
+               ${tasklist[i]}
+               
+               <button onclick="deletetask('${i}')">Delete</button> 
+               
+             </li>`;
+            
+         }
+        }
+        // click button
+        function edittask(i){
+            // alert('Edit task:'+tasklist[i]);
+            inputvalue.value=tasklist[i];
+            updateindex=i;
+        }
+        Updatebtn.addEventListener('click',function(){
+            // alert('task');
+            tasklist[updateindex]=inputvalue.value;
+
+             list.innerHTML='';
+
+        for(let i=0 ; i<tasklist.length;i++ )  
+         {
+         list.innerHTML+=` <li> 
+               ${tasklist[i]}
+               <button onclick="deletetask('${i}')">Delete</button> 
+               <button onclick="edittask('${i}')">Edit</button>
+
+             </li>`;
+         }
+        })
+
+</script>
+</html>
